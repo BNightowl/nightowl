@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>jQuery编写插件 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Nightowl&apos;blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="如今做web开发，jquery 几乎是必不可少的，就连vs神器在2010版本开始将Jquery 及ui 内置web项目里了。至于使用jquery好处这里就不再赘述了，用过的都知道。今天我们来讨论下jquery的插件机制，jquery有着成千上万的第三方插件，有时我们写好了一个独立的功能，也想将其与jquery结合起来，可以用jquery链式调用，这就要扩展jquery，写成插件形式了，如下面就是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery编写插件">
+<meta property="og:url" content="http://yoursite.com/2015/07/08/jQuery编写插件/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Nightowl&apos;blog">
+<meta property="og:description" content="如今做web开发，jquery 几乎是必不可少的，就连vs神器在2010版本开始将Jquery 及ui 内置web项目里了。至于使用jquery好处这里就不再赘述了，用过的都知道。今天我们来讨论下jquery的插件机制，jquery有着成千上万的第三方插件，有时我们写好了一个独立的功能，也想将其与jquery结合起来，可以用jquery链式调用，这就要扩展jquery，写成插件形式了，如下面就是一">
+<meta property="og:updated_time" content="2015-07-08T13:14:13.615Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="Nightowl&apos;blog">
+<meta name="twitter:title" content="jQuery编写插件">
+<meta name="twitter:description" content="如今做web开发，jquery 几乎是必不可少的，就连vs神器在2010版本开始将Jquery 及ui 内置web项目里了。至于使用jquery好处这里就不再赘述了，用过的都知道。今天我们来讨论下jquery的插件机制，jquery有着成千上万的第三方插件，有时我们写好了一个独立的功能，也想将其与jquery结合起来，可以用jquery链式调用，这就要扩展jquery，写成插件形式了，如下面就是一">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -63,94 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-js变量提升" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/08/js变量提升/" class="article-date">
-  <time datetime="2015-07-08T14:26:03.345Z" itemprop="datePublished">2015-07-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/08/js变量提升/">js变量提升</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在JS中函数的定义可以分为两种：</p>
-<ol>
-<li>函数声明<ol>
-<li>函数表达式</li>
-</ol>
-</li>
-</ol>
-<p>根据你的代码，下面的代码就是函数的声明（当然另外一段代码是函数表达式）：<br>function a (){<br>  alert(123);<br>}</p>
-<p>根据JS中的语法特性（注意哦，是js的语法特点，要记住）：<br>  在javascript函数体内（执行作用域）声明的变量，无论在函数体何处声明，它将都会被提升到函数的顶部，我们称这种现象为变量提升。 函数呢，它也有这种特性，即无论在函数体何处声明另一个函数，它将都会被提升到函数的顶部。只是采用函数表达式和函数声明所体现的函数提升的内容是有差别的：函数表达式和变量提升类似，只会提升函数的变量，不提升函数的定义；而函数声明提升时，不仅仅会提升函数的声明，函数的定义也会被提升</p>
-<p>根据以上特性，你的代码在执行时，<br>function a (){<br>  alert(123);<br>}<br>这段代码被提升到执行作用域的顶端，最开始被执行；</p>
-<p>然后，在执行<br>var a =function(){</p>
-<p> alert(‘234’);<br>}<br>这段代码，导致该代码覆盖了前面的函数声明代码；</p>
-<p>不信你可以做个测试：<br>   将a()放到js代码的最顶端，可以看看会打印什么结果，此时你就明白了！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/07/08/js变量提升/" data-id="cibuuxu4b0003pcfr7h4vrs9v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/08/test/" class="article-date">
-  <time datetime="2015-07-08T14:03:39.861Z" itemprop="datePublished">2015-07-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/08/test/">测试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/07/08/test/" data-id="cibuu52840002pcfr6iegxb7e" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-jQuery编写插件" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-jQuery编写插件" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/07/08/jQuery编写插件/" class="article-date">
   <time datetime="2015-07-08T11:45:41.000Z" itemprop="datePublished">2015-07-08</time>
@@ -163,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/08/jQuery编写插件/">jQuery编写插件</a>
+    <h1 class="article-title" itemprop="name">
+      jQuery编写插件
     </h1>
   
 
@@ -243,56 +157,29 @@ $(<span class="function"><span class="keyword">function</span> (<span class="par
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/05/hello-world/" class="article-date">
-  <time datetime="2015-07-05T07:13:24.956Z" itemprop="datePublished">2015-07-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2015/07/08/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          测试
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/05/hello-world/">Hello World</a>
-    </h1>
   
+    <a href="/2015/07/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/07/05/hello-world/" data-id="cibup9kkc0001iwfrmjrkl35a" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
-
-  
-  
 </section>
         
           <aside id="sidebar">
