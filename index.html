@@ -192,6 +192,88 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-jquery设置checkbox为checked状态不改变的解决办法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/12/jquery设置checkbox为checked状态不改变的解决办法/" class="article-date">
+  	<time datetime="2015-07-12T07:17:32.920Z" itemprop="datePublished">2015-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/12/jquery设置checkbox为checked状态不改变的解决办法/">jquery设置checkbox为checked状态不改变的解决办法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用jQuery设置checkbox为选择状态时，我们通常会使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(this).attr(<span class="string">"checked"</span>, <span class="literal">true</span>);</span><br><span class="line">//或者</span><br><span class="line">$(this).attr(<span class="string">"checked"</span>, checked);</span><br></pre></td></tr></table></figure>
+<p>但是当你的jquery版本大于1.6的时候，这种只能生效一次，后面你只会看到checkbox的checked属性会增加checked但是现实的状态是没有打钩的。这种情况下你就不能使用$(this).attr(“checked”, checked)这种方法了，需要使用下面的代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(this).prop(<span class="string">"checked"</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>prop()是jquery1.6以上版本的新方法，为什么会有这个方法呢？</p>
+<h2 id="prop和attr的区别">prop和attr的区别</h2><p>prop(propertyName) —— 获取匹配集合中第一个元素的Property的值<br>它还有另外几种重构函数，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prop(propertyName, value)</span><br><span class="line">prop(map)</span><br><span class="line">prop(propertyName, <span class="keyword">function</span>(index, oldPropertyValue))</span><br></pre></td></tr></table></figure>
+<p>上面的方法是给匹配元素集合设定一个或多个属性。</p>
+<p>关于jQuery1.6和1.6.1中Attributes模块变化的描述，以及.attr()方法和.prop()方法的首选使用，如下所示：</p>
+<p>Attributes模块的变化是移除了attributes和properties之间模棱两可的东西，但是在jQuery社区中引起了一些混乱，因为在1.6之前的所有版本中都使用一个方法(.attr())来处理attributes和properties。但是老的.attr()方法有一些bug，很难维护。jQuery1.6.1对Attributes模块进行了更新，并且修复了几个bug。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">elem.checked <span class="literal">true</span> (Boolean) Will change with checkbox state</span><br><span class="line">$(elem).prop(“checked”) <span class="literal">true</span> (Boolean) Will change with checkbox state</span><br><span class="line">elem.getAttribute(“checked”) “checked” (String) Initial state of the checkbox; does not change</span><br><span class="line">$(elem).attr(“checked”)(<span class="number">1.6</span>) “checked” (String) Initial state of the checkbox; does not change</span><br><span class="line">$(elem).attr(“checked”)(<span class="number">1.6</span>.<span class="number">1</span>+) “checked” (String) Will change with checkbox state</span><br><span class="line">$(elem).attr(“checked”)(pre-<span class="number">1.6</span>) <span class="literal">true</span> (Boolean) Changed with checkbox state</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(elem.checked)</span><br><span class="line"><span class="keyword">if</span>($(elem).prop(<span class="string">"checked"</span>))</span><br><span class="line"><span class="keyword">if</span>($(elem).is(<span class="string">":checked"</span>))</span><br></pre></td></tr></table></figure>
+<p>以上三个都是返回Boolean值。</p>
+<p>为了让jQuery1.6中的.attr()方法的变化被理解的清楚些，下面是一些使用.attr()的例子，虽然在jQuery之前的版本中能正常工作，但是现在必须使用.prop（）方法代替：</p>
+<table><tr><td>attr()</td><td>prop()</td></tr><tr><td>$(window).attr…</td><td>$(window).prop…</td></tr><tr><td>$(document).attr…</td><td>$(document).prop…</td></tr><tr><td>$(“:checkbox”).attr(“checked”,true)</td><td>$(“:checkbox”).prop(“checked”,true)</td></tr><tr><td>$(“:option”).attr(“checked”,true)</td><td>$(“:option”).prop(“checked”,true)</td></tr></table>
+
+<p>首先，window或document中使用.attr()方法在jQuery1.6中不能正常运行，因为window和document中不能有attributes。它们包含properties(比如：location或readyState)，必须使用.prop()方法操作或简单地使用javascript原生的方法。在jQuery1.6.1中，window和document中使用.attr()将被自动转成使用.prop，而不是抛出一个错误。</p>
+<p>其次，checked,selected和前面提到的其它boolean attributes，因为这些attributes和其相应的properties之间的特殊关系而被特殊对待。基本上，一个attribute就是以下html中你看到的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">"checkbox"</span> checked=<span class="string">"checked"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>boolean attributes，比如：checked，仅被设置成默认值或初始值。在一个checkbox的元素中，checked attributes在页面加载的时候就被设置，而不管checkbox元素是否被选中。</p>
+<p>properties就是浏览器用来记录当前值的东西。正常情况下，properties反映它们相应的attributes(如果存在的话)。但这并不是boolean attriubutes的情况。当用户点击一个checkbox元素或选中一个select元素的一个option时，boolean properties保持最新。但相应的boolean attributes是不一样的，正如上面所述，它们仅被浏览器用来保存初始值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">":checkbox"</span>).get(<span class="number">0</span>).checked = <span class="literal">true</span>;  </span><br><span class="line">// Is the same as $(<span class="string">":checkbox:first"</span>).prop(<span class="string">"checked"</span>, <span class="literal">true</span>);  </span><br><span class="line">在jQuery1.<span class="number">6</span>中，如果使用下面的方法设置checked：</span><br><span class="line">$(<span class="string">":checkbox"</span>).attr(<span class="string">"checked"</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>以上代码将不会检查checkbox元素，因为它是需要被设置的property，但是你所有的设置都是初始值。</p>
+<p>然而，曾经jQuery1.6被释放出来的时候，jQuery团队明白当浏览器仅关心页面加载时，设置一些值不是特别的有用。所以，为了保持向后兼容性和.attr()方法的有用性，我们可以继续在jQuery1.6.1中使用.attr()方法取得和设置这些boolean attributes。</p>
+<p>最普通的attributes是checked,selected,disabled和readOnly，但下面是jQuery1.6.1支持的使用.attr()动态地取得和设置boolean attributes/properties的完整列表：autofocus, autoplay, async, checked, controls, defer, disabled, hidden, loop, multiple, open, readonly, required, scoped, selected。</p>
+<p>还是建议使用.prop()方法来设置这些boolean attributes/properties，即使这些用例没有转换成使用.prop()方法，但是你的代码仍然可以在jQuery1.6.1中正常运行。</p>
+<p>下面是一些attributes和properties的列表，正常情况下，应该使用其对应的方法(见下面的列表)来取得和设置它们。下面的是首用法，但是.attr()方法可以运行在所有的attributes情况下。</p>
+<p>注意：一些DOM元素的properties也被列在下面，但是仅运行在新的.prop()方法中</p>
+<p><img src="img/dom-properties-list.jpg"></p>
+<p>.attr()和.prop()都不应该被用来取值/设值。使用.val()方法代替(即使使用.attr(“value”,”somevalue”) 可以继续运行，就像1.6之前做的那样)</p>
+<h2 id="首选用法的概述">首选用法的概述</h2><p>prop()方法应该被用来处理boolean attributes/properties以及在html(比如：window.location)中不存在的properties。其他所有的attributes(在html中你看到的那些)可以而且应该继续使用.attr()方法来进行操作。</p>
+<p>参考网址：<a href="http://www.zhidao91.com/jquery-attr-prop-deference/" target="_blank" rel="external">http://www.zhidao91.com/jquery-attr-prop-deference/</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-js变量提升" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -281,7 +363,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>如今做web开发，jquery 几乎是必不可少的，就连vs神器在2010版本开始将Jquery 及ui 内置web项目里了。至于使用jquery好处这里就不再赘述了，用过的都知道。今天我们来讨论下jquery的插件机制，jquery有着成千上万的第三方插件，有时我们写好了一个独立的功能，也想将其与jquery结合起来，可以用jquery链式调用，这就要扩展jquery，写成插件形式了，如下面就是一个简单扩展Jquery对象的demo：</p>
+        <ul>
+<li>如今做web开发，jquery 几乎是必不可少的，就连vs神器在2010版本开始将Jquery 及ui 内置web项目里了。至于使用jquery好处这里就不再赘述了，用过的都知道。今天我们来讨论下jquery的插件机制，jquery有着成千上万的第三方插件，有时我们写好了一个独立的功能，也想将其与jquery结合起来，可以用jquery链式调用，这就要扩展jquery，写成插件形式了，如下面就是一个简单扩展Jquery对象的demo：</li>
+</ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//sample:扩展jquery对象的方法，bold()用于加粗字体。</span><br><span class="line">(<span class="keyword">function</span> ($) &#123;</span><br><span class="line">    $.fn.extend(&#123;</span><br><span class="line">        <span class="string">"bold"</span>: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">            ///&lt;summary&gt;</span><br><span class="line">            /// 加粗字体</span><br><span class="line">            ///&lt;/summary&gt;</span><br><span class="line">            <span class="built_in">return</span> this.css(&#123; fontWeight: <span class="string">"bold"</span> &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)(jQuery);</span><br></pre></td></tr></table></figure>
 <h3 id="调用方式：">调用方式：</h3><p>这是一个非常简单的扩展。接下来我们一步步来解析上面的代码。</p>
 <h2 id="一、jquery的插件机制">一、jquery的插件机制</h2><p>为了方便用户创建插件，jquery提供了jQuery.extend()和jQuery.fn.extend()方法。</p>
@@ -302,47 +386,22 @@
 <p>匿名函数最大的用途是创建闭包（这是JavaScript语言的特性之一），并且还可以构建命名空间，以减少全局变量的使用。</p>
 <p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a=<span class="number">1</span>;</span><br><span class="line">(<span class="keyword">function</span>()()&#123;</span><br><span class="line">　　　　var a=<span class="number">100</span>;</span><br><span class="line">　　&#125;)();</span><br><span class="line"> alert(a); //弹出 <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
 <p>更多 闭包和匿名函数 可查看 Javascript的匿名函数与自执行 这篇文章。</p>
-<h2 id="三、一步一步封装JQuery插件">三、一步一步封装JQuery插件</h2><p>接下来我们一起来写个高亮的jqury插件<br>1.定一个闭包区域，防止插件”污染”<br>//闭包限定命名空间<br>(function ($) {</p>
-<p>})(window.jQuery);<br>2.jQuery.fn.extend(object)扩展jquery 方法，制作插件</p>
-<p>//闭包限定命名空间<br>(function ($) {<br>    $.fn.extend({<br>        “highLight”:function(options){<br>            //do something<br>        }<br>    });<br>})(window.jQuery);</p>
+<h2 id="三、一步一步封装JQuery插件">三、一步一步封装JQuery插件</h2><p>接下来我们一起来写个高亮的jqury插件<br>1.定一个闭包区域，防止插件”污染”</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//闭包限定命名空间</span><br><span class="line">(<span class="keyword">function</span> ($) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;)(window.jQuery);</span><br></pre></td></tr></table></figure>
+<p>2.jQuery.fn.extend(object)扩展jquery 方法，制作插件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//闭包限定命名空间</span><br><span class="line">(<span class="keyword">function</span> ($) &#123;</span><br><span class="line">    $.fn.extend(&#123;</span><br><span class="line">        <span class="string">"highLight"</span>:<span class="keyword">function</span>(options)&#123;</span><br><span class="line">            //<span class="keyword">do</span> something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)(window.jQuery);</span><br></pre></td></tr></table></figure>
 <p>3.给插件默认参数，实现 插件的功能</p>
-<p>//闭包限定命名空间<br>(function ($) {<br>    $.fn.extend({<br>        “highLight”: function (options) {<br>            var opts = $.extend({}, defaluts, options); //使用jQuery.extend 覆盖插件默认参数<br>            this.each(function () {  //这里的this 就是 jQuery对象<br>                //遍历所有的要高亮的dom,当调用 highLight()插件的是一个集合的时候。<br>                var $this = $(this); //获取当前dom 的 jQuery对象，这里的this是当前循环的dom<br>                //根据参数来设置 dom的样式<br>                $this.css({<br>                    backgroundColor: opts.background,<br>                    color: opts.foreground<br>                });<br>            });</p>
-<pre><code>    }
-});
-<span class="comment">//默认参数</span>
-<span class="keyword">var</span> defaluts = {
-    foreground: <span class="string">'red'</span>,
-    background: <span class="string">'yellow'</span>
-};
-</code></pre><p>})(window.jQuery);</p>
-<p>到这一步，高亮插件基本功能已经具备了。调用代码如下：<br>$(function () {<br>    $(“p”).highLight(); //调用自定义 高亮插件<br>});<br>这里只能 直接调用，不能链式调用。我们知道jQuey是可以链式调用的，就是可以在一个jQuery对象上调用多个方法，如：<br>$(‘#id’).css({marginTop:’100px’}).addAttr(“title”,”测试“);<br>但是我们上面的插件，就不能这样链式调用了。比如：$(“p”).highLight().css({marginTop:’100px’}); //将会报找不到css方法，原因在与我的自定义插件在完成功能后，没有将 jQuery对象给返回出来。接下来，return jQuery对象，让我们的插件也支持链式调用。（其实很简单，就是执行完我们插件代码的时候将jQuery对像return 出来，和上面的代码没啥区别）<br>  View Code<br>4.暴露公共方法 给别人来扩展你的插件（如果有需求的话）<br>比如的高亮插件有一个format方法来格式话高亮文本，则我们可将它写成公共的，暴露给插件使用者，不同的使用着根据自己的需求来重写该format方法，从而是高亮文本可以呈现不同的格式。<br>    //公共的格式化 方法. 默认是加粗，用户可以通过覆盖该方法达到不同的格式化效果。<br>    $.fn.highLight.format = function (str) {<br>        return “<strong>“ + str + “</strong>“;<br>    }<br>5.插件私有方法<br> 有些时候，我们的插件需要一些私有方法，不能被外界访问。例如 我们插件里面需要有个方法 来检测用户调用插件时传入的参数是否符合规范。<br>6.其他的一些设置，如：为你的插件加入元数据插件的支持将使其变得更强大。<br>完整的高亮插件代码如下：</p>
-<p>//闭包限定命名空间<br>(function ($) {<br>    $.fn.extend({<br>        “highLight”: function (options) {<br>            //检测用户传进来的参数是否合法<br>            if (!isValid(options))<br>                return this;<br>            var opts = $.extend({}, defaluts, options); //使用jQuery.extend 覆盖插件默认参数<br>            return this.each(function () {  //这里的this 就是 jQuery对象。这里return 为了支持链式调用<br>                //遍历所有的要高亮的dom,当调用 highLight()插件的是一个集合的时候。<br>                var $this = $(this); //获取当前dom 的 jQuery对象，这里的this是当前循环的dom<br>                //根据参数来设置 dom的样式<br>                $this.css({<br>                    backgroundColor: opts.background,<br>                    color: opts.foreground<br>                });<br>                //格式化高亮文本<br>                var markup = $this.html();<br>                markup = $.fn.highLight.format(markup);<br>                $this.html(markup);<br>            });</p>
-<pre><code>    }
-});
-<span class="comment">//默认参数</span>
-<span class="keyword">var</span> defaluts = {
-    foreground: <span class="string">'red'</span>,
-    background: <span class="string">'yellow'</span>
-};
-<span class="comment">//公共的格式化 方法. 默认是加粗，用户可以通过覆盖该方法达到不同的格式化效果。</span>
-$.fn.highLight.format = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>{
-    <span class="keyword">return</span> <span class="string">"&lt;strong&gt;"</span> + str + <span class="string">"&lt;/strong&gt;"</span>;
-}
-<span class="comment">//私有方法，检测参数是否合法</span>
-<span class="function"><span class="keyword">function</span> <span class="title">isValid</span>(<span class="params">options</span>) </span>{
-    <span class="keyword">return</span> !options || (options &amp;&amp; <span class="keyword">typeof</span> options === <span class="string">"object"</span>) ? <span class="literal">true</span> : <span class="literal">false</span>;
-}
-</code></pre><p>})(window.jQuery);</p>
-<p>调用</p>
-<pre><code><span class="comment">//调用</span>
-<span class="comment">//调用者覆盖 插件暴露的共公方法</span>
-$.fn.highLight.format = <span class="function"><span class="keyword">function</span> (<span class="params">txt</span>) </span>{
-    <span class="keyword">return</span> <span class="string">"&lt;em&gt;"</span> + txt + <span class="string">"&lt;/em&gt;"</span>
-}
-$(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    $(<span class="string">"p"</span>).highLight({ foreground: <span class="string">'orange'</span>, background: <span class="string">'#ccc'</span> }); <span class="comment">//调用自定义 高亮插件</span>
-});
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//闭包限定命名空间</span><br><span class="line">(<span class="keyword">function</span> ($) &#123;</span><br><span class="line">    $.fn.extend(&#123;</span><br><span class="line">        <span class="string">"highLight"</span>: <span class="keyword">function</span> (options) &#123;</span><br><span class="line">            var opts = $.extend(&#123;&#125;, defaluts, options); //使用jQuery.extend 覆盖插件默认参数</span><br><span class="line">            this.each(<span class="function"><span class="title">function</span></span> () &#123;  //这里的this 就是 jQuery对象</span><br><span class="line">                //遍历所有的要高亮的dom,当调用 highLight()插件的是一个集合的时候。</span><br><span class="line">                var <span class="variable">$this</span> = $(this); //获取当前dom 的 jQuery对象，这里的this是当前循环的dom</span><br><span class="line">                //根据参数来设置 dom的样式</span><br><span class="line">                <span class="variable">$this</span>.css(&#123;</span><br><span class="line">                    backgroundColor: opts.background,</span><br><span class="line">                    color: opts.foreground</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    //默认参数</span><br><span class="line">    var defaluts = &#123;</span><br><span class="line">        foreground: <span class="string">'red'</span>,</span><br><span class="line">        background: <span class="string">'yellow'</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)(window.jQuery);</span><br></pre></td></tr></table></figure>
+<p>到这一步，高亮插件基本功能已经具备了。调用代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    $(<span class="string">"p"</span>).highLight(); //调用自定义 高亮插件</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里只能 直接调用，不能链式调用。我们知道jQuey是可以链式调用的，就是可以在一个jQuery对象上调用多个方法，如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#id'</span>).css(&#123;marginTop:<span class="string">'100px'</span>&#125;).addAttr(<span class="string">"title"</span>,<span class="string">"测试“);</span></span><br></pre></td></tr></table></figure>
+<p>但是我们上面的插件，就不能这样链式调用了。比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"p"</span>).highLight().css(&#123;marginTop:<span class="string">'100px'</span>&#125;); //将会报找不到css方法，原因在与我的自定义插件在完成功能后，没有将 jQuery对象给返回出来。接下来，<span class="built_in">return</span> jQuery对象，让我们的插件也支持链式调用。（其实很简单，就是执行完我们插件代码的时候将jQuery对像<span class="built_in">return</span> 出来，和上面的代码没啥区别）View Code</span><br></pre></td></tr></table></figure>
+<p>4.暴露公共方法 给别人来扩展你的插件（如果有需求的话）<br>比如的高亮插件有一个format方法来格式话高亮文本，则我们可将它写成公共的，暴露给插件使用者，不同的使用着根据自己的需求来重写该format方法，从而是高亮文本可以呈现不同的格式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//公共的格式化 方法. 默认是加粗，用户可以通过覆盖该方法达到不同的格式化效果。</span><br><span class="line">$.fn.highLight.format = <span class="keyword">function</span> (str) &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">"&lt;strong&gt;"</span> + str + <span class="string">"&lt;/strong&gt;"</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5.插件私有方法<br> 有些时候，我们的插件需要一些私有方法，不能被外界访问。例如 我们插件里面需要有个方法 来检测用户调用插件时传入的参数是否符合规范。<br>6.其他的一些设置，如：为你的插件加入元数据插件的支持将使其变得更强大。<br>完整的高亮插件代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">//闭包限定命名空间</span><br><span class="line">(<span class="keyword">function</span> ($) &#123;</span><br><span class="line">    $.fn.extend(&#123;</span><br><span class="line">        <span class="string">"highLight"</span>: <span class="keyword">function</span> (options) &#123;</span><br><span class="line">            //检测用户传进来的参数是否合法</span><br><span class="line">            <span class="keyword">if</span> (!isValid(options))</span><br><span class="line">                <span class="built_in">return</span> this;</span><br><span class="line">            var opts = $.extend(&#123;&#125;, defaluts, options); //使用jQuery.extend 覆盖插件默认参数</span><br><span class="line">            <span class="built_in">return</span> this.each(<span class="function"><span class="title">function</span></span> () &#123;  //这里的this 就是 jQuery对象。这里<span class="built_in">return</span> 为了支持链式调用</span><br><span class="line">                //遍历所有的要高亮的dom,当调用 highLight()插件的是一个集合的时候。</span><br><span class="line">                var <span class="variable">$this</span> = $(this); //获取当前dom 的 jQuery对象，这里的this是当前循环的dom</span><br><span class="line">                //根据参数来设置 dom的样式</span><br><span class="line">                <span class="variable">$this</span>.css(&#123;</span><br><span class="line">                    backgroundColor: opts.background,</span><br><span class="line">                    color: opts.foreground</span><br><span class="line">                &#125;);</span><br><span class="line">                //格式化高亮文本</span><br><span class="line">                var markup = <span class="variable">$this</span>.html();</span><br><span class="line">                markup = $.fn.highLight.format(markup);</span><br><span class="line">                <span class="variable">$this</span>.html(markup);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    //默认参数</span><br><span class="line">    var defaluts = &#123;</span><br><span class="line">        foreground: <span class="string">'red'</span>,</span><br><span class="line">        background: <span class="string">'yellow'</span></span><br><span class="line">    &#125;;</span><br><span class="line">    //公共的格式化 方法. 默认是加粗，用户可以通过覆盖该方法达到不同的格式化效果。</span><br><span class="line">    $.fn.highLight.format = <span class="keyword">function</span> (str) &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="string">"&lt;strong&gt;"</span> + str + <span class="string">"&lt;/strong&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    //私有方法，检测参数是否合法</span><br><span class="line">    <span class="keyword">function</span> isValid(options) &#123;</span><br><span class="line">        <span class="built_in">return</span> !options || (options &amp;&amp; typeof options === <span class="string">"object"</span>) ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(window.jQuery);</span><br><span class="line"> </span><br><span class="line">调用</span><br><span class="line"> </span><br><span class="line">        //调用</span><br><span class="line">        //调用者覆盖 插件暴露的共公方法</span><br><span class="line">        $.fn.highLight.format = <span class="keyword">function</span> (txt) &#123;</span><br><span class="line">            <span class="built_in">return</span> <span class="string">"&lt;em&gt;"</span> + txt + <span class="string">"&lt;/em&gt;"</span></span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">            $(<span class="string">"p"</span>).highLight(&#123; foreground: <span class="string">'orange'</span>, background: <span class="string">'#ccc'</span> &#125;); //调用自定义 高亮插件</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
       
     </div>
     
