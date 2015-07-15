@@ -27,7 +27,7 @@
 
 根据你的代码，下面的代码就是函数的声明（当然另外一段代码是函数表达式）：function a (){  alert(123);}
 根据JS中的语法特性（注意哦，是js的语法特点，要记住）：  在javascript函数体内（执行作用域）声明的变量，无论在函数体何处声明，它将都会被提升到函数的顶部，我们称这种现象为变量提升。 函数呢，它">
-<meta property="og:updated_time" content="2015-07-15T02:03:08.969Z">
+<meta property="og:updated_time" content="2015-07-15T04:05:40.350Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js变量提升">
 <meta name="twitter:description" content="在JS中函数的定义可以分为两种：
@@ -209,7 +209,7 @@
   
     <div class="article-meta">
       <a href="/2015/07/15/js变量提升/" class="article-date">
-  	<time datetime="2015-07-15T02:03:08.969Z" itemprop="datePublished">2015-07-15</time>
+  	<time datetime="2015-07-15T04:05:40.350Z" itemprop="datePublished">2015-07-15</time>
 </a>
     </div>
   
@@ -251,7 +251,8 @@
 </ol>
 <p>根据你的代码，下面的代码就是函数的声明（当然另外一段代码是函数表达式）：<br>function a (){<br>  alert(123);<br>}</p>
 <p>根据JS中的语法特性（注意哦，是js的语法特点，要记住）：<br>  在javascript函数体内（执行作用域）声明的变量，无论在函数体何处声明，它将都会被提升到函数的顶部，我们称这种现象为变量提升。 函数呢，它也有这种特性，即无论在函数体何处声明另一个函数，它将都会被提升到函数的顶部。只是采用函数表达式和函数声明所体现的函数提升的内容是有差别的：函数表达式和变量提升类似，只会提升函数的变量，不提升函数的定义；而函数声明提升时，不仅仅会提升函数的声明，函数的定义也会被提升</p>
-<p>根据以上特性，你的代码在执行时，<br>function a (){<br>  alert(123);<br>}<br>这段代码被提升到执行作用域的顶端，最开始被执行；</p>
+<p>根据以上特性，你的代码在执行时，<br><a id="more"></a></p>
+<p>function a (){<br>  alert(123);<br>}<br>这段代码被提升到执行作用域的顶端，最开始被执行；</p>
 <p>然后，在执行<br>var a =function(){</p>
 <p> alert(‘234’);<br>}<br>这段代码，导致该代码覆盖了前面的函数声明代码；</p>
 <p>不信你可以做个测试：<br>   将a()放到js代码的最顶端，可以看看会打印什么结果，此时你就明白了！</p>
@@ -264,18 +265,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          jquery设置checkbox为checked状态不改变的解决办法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/07/08/jQuery编写插件/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jQuery编写插件</div>
+    <a href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jquery设置checkbox为checked状态不改变的解决办法</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
