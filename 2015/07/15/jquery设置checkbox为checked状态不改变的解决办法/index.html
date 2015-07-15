@@ -16,7 +16,7 @@
 123$(this).attr(&quot;checked&quot;, true);//或者$(this).attr(&quot;checked&quot;, checked);
 但是当你的jquery版本大于1.6的时候，这种只能生效一次，后面你只会看到checkbox的checked属性会增加checked但是现实的状态是没有打钩的。这种情况下你就不能使用$(thi">
 <meta property="og:image" content="http://bnightowl.com/img/dom-properties-list.jpg">
-<meta property="og:updated_time" content="2015-07-15T02:06:53.130Z">
+<meta property="og:updated_time" content="2015-07-15T03:33:00.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jquery设置checkbox为checked状态不改变的解决办法">
 <meta name="twitter:description" content="使用jQuery设置checkbox为选择状态时，我们通常会使用
@@ -192,7 +192,7 @@
   
     <div class="article-meta">
       <a href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/" class="article-date">
-  	<time datetime="2015-07-15T02:06:53.130Z" itemprop="datePublished">2015-07-15</time>
+  	<time datetime="2015-07-15T03:33:00.705Z" itemprop="datePublished">2015-07-15</time>
 </a>
     </div>
   
@@ -253,7 +253,7 @@
 <p>还是建议使用.prop()方法来设置这些boolean attributes/properties，即使这些用例没有转换成使用.prop()方法，但是你的代码仍然可以在jQuery1.6.1中正常运行。</p>
 <p>下面是一些attributes和properties的列表，正常情况下，应该使用其对应的方法(见下面的列表)来取得和设置它们。下面的是首用法，但是.attr()方法可以运行在所有的attributes情况下。</p>
 <p>注意：一些DOM元素的properties也被列在下面，但是仅运行在新的.prop()方法中</p>
-<p><img src="img/dom-properties-list.jpg"></p>
+<p><img src="http://bnightowl.com/img/dom-properties-list.jpg"></p>
 <p>.attr()和.prop()都不应该被用来取值/设值。使用.val()方法代替(即使使用.attr(“value”,”somevalue”) 可以继续运行，就像1.6之前做的那样)</p>
 <h2 id="首选用法的概述">首选用法的概述</h2><p>prop()方法应该被用来处理boolean attributes/properties以及在html(比如：window.location)中不存在的properties。其他所有的attributes(在html中你看到的那些)可以而且应该继续使用.attr()方法来进行操作。</p>
 <p>参考网址：<a href="http://www.zhidao91.com/jquery-attr-prop-deference/" target="_blank" rel="external">http://www.zhidao91.com/jquery-attr-prop-deference/</a></p>
