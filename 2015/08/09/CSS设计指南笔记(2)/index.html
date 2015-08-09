@@ -6,21 +6,18 @@
   <title>CSS设计指南笔记(2) | Bnightowl</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一.层叠层叠，就是层叠样式表中的层叠，是CSS的核心机制，是一种样式在文档层次中逐层叠加的过程，目的是让浏览器面对某个标签特定属性值的多个来源，确定最终使用哪个值。
-1.浏览器层叠各个来源样式的顺序浏览器默认样式表&amp;gt;用户样式表&amp;gt;作者链接样式表&amp;gt;作者嵌入样式&amp;gt;作者行内样式（这个顺序也就是样式的优先级吧）
-2.层叠规则规则一：找到应用给每个元素和属性的所有声明规则二：按照顺序和">
+1.浏览器层叠各个来源样式的顺序浏览器默认样式表&amp;gt;用户样式表&amp;gt;作者链接样式表&amp;gt;作者嵌入样式&amp;gt;作者行内样式（这个顺序也就是样式的优先级吧）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS设计指南笔记(2)">
 <meta property="og:url" content="http://bnightowl.com/2015/08/09/CSS设计指南笔记(2)/index.html">
 <meta property="og:site_name" content="Bnightowl">
 <meta property="og:description" content="一.层叠层叠，就是层叠样式表中的层叠，是CSS的核心机制，是一种样式在文档层次中逐层叠加的过程，目的是让浏览器面对某个标签特定属性值的多个来源，确定最终使用哪个值。
-1.浏览器层叠各个来源样式的顺序浏览器默认样式表&amp;gt;用户样式表&amp;gt;作者链接样式表&amp;gt;作者嵌入样式&amp;gt;作者行内样式（这个顺序也就是样式的优先级吧）
-2.层叠规则规则一：找到应用给每个元素和属性的所有声明规则二：按照顺序和">
-<meta property="og:updated_time" content="2015-08-09T07:57:15.192Z">
+1.浏览器层叠各个来源样式的顺序浏览器默认样式表&amp;gt;用户样式表&amp;gt;作者链接样式表&amp;gt;作者嵌入样式&amp;gt;作者行内样式（这个顺序也就是样式的优先级吧）">
+<meta property="og:updated_time" content="2015-08-09T08:01:51.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS设计指南笔记(2)">
 <meta name="twitter:description" content="一.层叠层叠，就是层叠样式表中的层叠，是CSS的核心机制，是一种样式在文档层次中逐层叠加的过程，目的是让浏览器面对某个标签特定属性值的多个来源，确定最终使用哪个值。
-1.浏览器层叠各个来源样式的顺序浏览器默认样式表&amp;gt;用户样式表&amp;gt;作者链接样式表&amp;gt;作者嵌入样式&amp;gt;作者行内样式（这个顺序也就是样式的优先级吧）
-2.层叠规则规则一：找到应用给每个元素和属性的所有声明规则二：按照顺序和">
+1.浏览器层叠各个来源样式的顺序浏览器默认样式表&amp;gt;用户样式表&amp;gt;作者链接样式表&amp;gt;作者嵌入样式&amp;gt;作者行内样式（这个顺序也就是样式的优先级吧）">
   
     <link rel="alternative" href="/atom.xml" title="Bnightowl" type="application/atom+xml">
   
@@ -191,7 +188,7 @@
   
     <div class="article-meta">
       <a href="/2015/08/09/CSS设计指南笔记(2)/" class="article-date">
-  	<time datetime="2015-08-09T07:57:15.192Z" itemprop="datePublished">2015-08-09</time>
+  	<time datetime="2015-08-09T08:01:51.199Z" itemprop="datePublished">2015-08-09</time>
 </a>
     </div>
   
@@ -225,7 +222,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="一-层叠">一.层叠</h1><p>层叠，就是层叠样式表中的层叠，是CSS的核心机制，是一种样式在文档层次中逐层叠加的过程，目的是让浏览器面对某个标签特定属性值的多个来源，确定最终使用哪个值。</p>
-<h3 id="1-浏览器层叠各个来源样式的顺序">1.浏览器层叠各个来源样式的顺序</h3><p>浏览器默认样式表&gt;用户样式表&gt;作者链接样式表&gt;作者嵌入样式&gt;作者行内样式（这个顺序也就是样式的优先级吧）</p>
+<h3 id="1-浏览器层叠各个来源样式的顺序">1.浏览器层叠各个来源样式的顺序</h3><p>浏览器默认样式表&gt;用户样式表&gt;作者链接样式表&gt;作者嵌入样式&gt;作者行内样式（这个顺序也就是样式的优先级吧）<br><a id="more"></a></p>
 <h3 id="2-层叠规则">2.层叠规则</h3><p>规则一：找到应用给每个元素和属性的所有声明<br>规则二：按照顺序和权重排序<br>按照浏览器层叠各个来源样式的顺序确定css规则里属性的值，当然也可以通过加重声明的权重防止属性的值被改变，也就是空格!important分号(;)，屏蔽其他来源样式。<br>规则三：按特指度排序<br>特指度就是表示一条规则有多明确。特指度越高的CSS规则就越优先起作用。比如：p{color:red;}和div p{color:blue;},明显后者更明确，特指度比前者高，<br>所以p标签里的字体颜色最终会以蓝色显示。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">计算特指度：</span><br><span class="line">ICE公式计算三个值：I-C-E，也就是ID,Class,Element</span><br><span class="line">	<span class="number">1</span>.选择符中有一个ID，就在I的位置上加<span class="number">1</span></span><br><span class="line">	<span class="number">2</span>.选择符中有一个类，就在C的位置上加<span class="number">1</span></span><br><span class="line">	<span class="number">3</span>.选择符中有一个元素（标签名）名，就在E的位置上加<span class="number">1</span>；</span><br><span class="line">	<span class="number">4</span>.得到一个三位数</span><br><span class="line">注意：此时得到的ICE并非真正的三位数，只不过大多数情况下我们可以将它看成三位数来比较，最大的胜出，但是，千万要记得，像<span class="number">0</span>-<span class="number">1</span>-<span class="number">12</span>与<span class="number">0</span>-<span class="number">2</span>-<span class="number">0</span>相比，还是后者特指度更高。</span><br></pre></td></tr></table></figure></p>
 <p>规则四：顺序决定权重<br>如果两条CSS规则都影响某一个元素的同一个属性，而且特指度也相同，那么位置最靠下的规则胜出，也就是后声明的规则优先。</p>
 <h1 id="二-规则声明">二.规则声明</h1><p>CSS规则声明主要分三类：<br>    1.文本值。例如：{font-size:bold}声明中bold就是一个文本值。也叫关键字。<br>    2.数字值。数字值后面都有一个单位。例如英寸或点。比如：{font-size:16px;}中的12是数字，px是单位（像素），如果为0就不用带单位。<br>    3.颜色值。颜色值可以用几种不同的格式来写，例如RGB（red,green,blue,红绿蓝）,HSL(Hue,Saturation,Luminance,色相，饱和度，亮度)和十六进制值(例如#ffffff，另外RGB和HSL都支持Alpha通道，用于设置颜色的不透明度，相应格式为RGBA和HSLA,alpha是透明度，值是1或0，也可以是0~1之间的一个数字值。</p>
