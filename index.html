@@ -360,6 +360,72 @@
 
 
   
+    <article id="post-jquery设置checkbox为checked状态不改变的解决办法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/" class="article-date">
+  	<time datetime="2015-07-14T16:00:00.000Z" itemprop="datePublished">2015-07-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/">jquery设置checkbox为checked状态不改变的解决办法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用jQuery设置checkbox为选择状态时，我们通常会使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(this).attr(<span class="string">"checked"</span>, <span class="literal">true</span>);</div><div class="line">//或者</div><div class="line">$(this).attr(<span class="string">"checked"</span>, checked);</div></pre></td></tr></table></figure>
+<p>但是当你的jquery版本大于1.6的时候，这种只能生效一次，后面你只会看到checkbox的checked属性会增加checked但是现实的状态是没有打钩的。这种情况下你就不能使用$(this).attr(“checked”, checked)这种方法了，需要使用下面的代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(this).prop(<span class="string">"checked"</span>, <span class="literal">true</span>);</div></pre></td></tr></table></figure>
+<p>prop()是jquery1.6以上版本的新方法，为什么会有这个方法呢？</p>
+<h2 id="prop和attr的区别"><a href="#prop和attr的区别" class="headerlink" title="prop和attr的区别"></a>prop和attr的区别</h2><p>prop(propertyName) —— 获取匹配集合中第一个元素的Property的值<br>它还有另外几种重构函数，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">prop(propertyName, value)</div><div class="line">prop(map)</div><div class="line">prop(propertyName, <span class="keyword">function</span>(index, oldPropertyValue))</div></pre></td></tr></table></figure>
+<p>上面的方法是给匹配元素集合设定一个或多个属性。</p>
+<p>关于jQuery1.6和1.6.1中Attributes模块变化的描述，以及.attr()方法和.prop()方法的首选使用，如下所示：</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-js变量提升" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -411,72 +477,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/07/15/js变量提升/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-jquery设置checkbox为checked状态不改变的解决办法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/" class="article-date">
-  	<time datetime="2015-07-14T16:00:00.000Z" itemprop="datePublished">2015-07-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/">jquery设置checkbox为checked状态不改变的解决办法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用jQuery设置checkbox为选择状态时，我们通常会使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(this).attr(<span class="string">"checked"</span>, <span class="literal">true</span>);</div><div class="line">//或者</div><div class="line">$(this).attr(<span class="string">"checked"</span>, checked);</div></pre></td></tr></table></figure>
-<p>但是当你的jquery版本大于1.6的时候，这种只能生效一次，后面你只会看到checkbox的checked属性会增加checked但是现实的状态是没有打钩的。这种情况下你就不能使用$(this).attr(“checked”, checked)这种方法了，需要使用下面的代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(this).prop(<span class="string">"checked"</span>, <span class="literal">true</span>);</div></pre></td></tr></table></figure>
-<p>prop()是jquery1.6以上版本的新方法，为什么会有这个方法呢？</p>
-<h2 id="prop和attr的区别"><a href="#prop和attr的区别" class="headerlink" title="prop和attr的区别"></a>prop和attr的区别</h2><p>prop(propertyName) —— 获取匹配集合中第一个元素的Property的值<br>它还有另外几种重构函数，如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">prop(propertyName, value)</div><div class="line">prop(map)</div><div class="line">prop(propertyName, <span class="keyword">function</span>(index, oldPropertyValue))</div></pre></td></tr></table></figure>
-<p>上面的方法是给匹配元素集合设定一个或多个属性。</p>
-<p>关于jQuery1.6和1.6.1中Attributes模块变化的描述，以及.attr()方法和.prop()方法的首选使用，如下所示：</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/07/15/jquery设置checkbox为checked状态不改变的解决办法/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
